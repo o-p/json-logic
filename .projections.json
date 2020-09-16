@@ -1,0 +1,10 @@
+{
+    "src/*.php": {
+      "alternate": "tests/JsonLogic/{}Test.php",
+      "type": "source"
+    },
+    "tests/JsonLogic/*Test.php": {
+      "alternate": "src/{}.php",
+      "type": "test"
+    }
+  }
