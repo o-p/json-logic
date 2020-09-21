@@ -15,6 +15,8 @@ use function is_string;
 
 /**
  * For fully fallback to official JsonLogic lib
+ *
+ * phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
  */
 trait Fallbacks
 {
