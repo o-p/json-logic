@@ -33,6 +33,7 @@
     },
     "scripts": {
         "lint": "phpcs",
-        "test": "phpunit"
+        "test": "phpunit --stop-on-failure --no-coverage --colors=auto",
+        "test:ci": "phpunit --disallow-test-output -c phpunit.xml.dist"
     }
 }
