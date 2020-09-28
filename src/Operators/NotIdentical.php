@@ -5,11 +5,11 @@ use Closure;
 use JsonLogic\Parameters;
 
 /**
- * @operator !=
+ * @operator !==
  */
-class NotEquals extends Operator
+class NotIdentical extends Operator
 {
-    protected $alias = '!=';
+    protected $alias = '!==';
     protected $minParamCounts = 2;
 
     public function params($param): Closure
@@ -19,7 +19,7 @@ class NotEquals extends Operator
 
         return function (&$data) use (&$prepared): bool {
             return $prepared->everyPairs(function (&$a, &$b) {
-                return $a != $b;
+                return $a !== $b;
             }, $data);
         };
     }

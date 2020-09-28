@@ -5,21 +5,20 @@ use Closure;
 use JsonLogic\Parameters;
 
 /**
- * @operator ===
+ * @operator %
  */
-class Same extends Operator
+class Modulo extends Operator
 {
-    protected $alias = '===';
-    protected $minParamCounts = 2;
+    protected $alias = '%';
 
     public function params($param): Closure
     {
         $this->autoValidateParams($param);
         $prepared = Parameters::from($param);
 
-        return function (&$data) use (&$prepared): bool {
-            return $prepared->everyPairs(function (&$a, &$b) {
-                return $a === $b;
+        return function (&$data) use (&$prepared) {
+            return $prepared->reduce(function ($a, $b) {
+                return $a % $b;
             }, $data);
         };
     }

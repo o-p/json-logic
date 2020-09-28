@@ -37,6 +37,28 @@ class Parameters
         );
     }
 
+    public function reduce(callable $fn, &$data, $init = null)
+    {
+        return is_null($init)
+            ? array_reduce(
+                array_slice($this->params, 1),
+                function ($curry, $closure) use (&$data, &$fn) {
+                    return $fn($curry, $closure($data));
+                },
+                $this->params[0]($data)
+            )
+            : array_reduce($this->params, function ($curry, $closure) use (&$data, &$fn) {
+                return $fn($curry, $closure($data));
+            }, $init);
+    }
+
+    public function values(&$data): array
+    {
+        return array_map(function ($getter) use (&$data) {
+            return $getter($data);
+        }, $this->params);
+    }
+
     private function recurseEvery(callable &$fn, &$data, Closure &$getter = null, Closure &...$rest): bool
     {
         return $getter
